@@ -22,7 +22,7 @@ public class AudioEncoder {
                 baos.write(buf, 0, n);
             audioBytes = baos.toByteArray();
 
-            audioBase64 = Base64.encodeToString(audioBytes, Base64.DEFAULT);
+            audioBase64 = Base64.encodeToString(audioBytes, Base64.NO_WRAP);
         } catch (Exception e) {
             Log.w(TAG, e);
         }

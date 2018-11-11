@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     .setEncoding("LINEAR16")
                     .setLanguage("vi-VN")
                     .setModel("default")
+                    .setSampleRateHertz(16000)
                     .build();
 
             RecognitionBody recognitionBody = new RecognitionBody();

@@ -16,12 +16,16 @@ public class RecognitionConfig {
     @SerializedName("model")
     @Expose
     private String mModel;
+    @SerializedName("sampleRateHertz")
+    @Expose
+    private int mSampleRateHertz;
 
     private RecognitionConfig(Builder builder) {
         this.mEnableAutomaticPunctuation = builder.enableAutomaticPunctuation;
         this.mEncoding = builder.encoding;
         this.mLanguage = builder.language;
         this.mModel = builder.model;
+        this.mSampleRateHertz = builder.sampleRateHertz;
     }
 
     public static Builder newBuilder() {
@@ -33,6 +37,7 @@ public class RecognitionConfig {
         private String encoding;
         private String language;
         private String model;
+        public int sampleRateHertz;
 
         public Builder setEnableAutomaticPunctuation(boolean enableAutomaticPunctuation) {
             this.enableAutomaticPunctuation = enableAutomaticPunctuation;
@@ -51,6 +56,11 @@ public class RecognitionConfig {
 
         public Builder setModel(String model) {
             this.model = model;
+            return this;
+        }
+
+        public Builder setSampleRateHertz(int sampleRateHertz) {
+            this.sampleRateHertz = sampleRateHertz;
             return this;
         }
 
