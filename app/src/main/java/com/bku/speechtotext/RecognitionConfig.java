@@ -1,9 +1,20 @@
 package com.bku.speechtotext;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class RecognitionConfig {
+    @SerializedName("enableAutomaticPunctuation")
+    @Expose
     private boolean mEnableAutomaticPunctuation;
+    @SerializedName("encoding")
+    @Expose
     private String mEncoding;
+    @SerializedName("languageCode")
+    @Expose
     private String mLanguage;
+    @SerializedName("model")
+    @Expose
     private String mModel;
 
     private RecognitionConfig(Builder builder) {
@@ -15,15 +26,6 @@ public class RecognitionConfig {
 
     public static Builder newBuilder() {
         return new Builder();
-    }
-
-    public String toJsonString() {
-        return  "\"config\": {\n" +
-                "\"enableAutomaticPunctuation\": " + mEnableAutomaticPunctuation + ",\n" +
-                "\"encoding\": \"" + mEncoding + "\",\n" +
-                "\"languageCode\": \"" + mLanguage + "\",\n" +
-                "\"model\": \"" + mModel + "\"\n" +
-                "}";
     }
 
     static class Builder {
