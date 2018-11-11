@@ -13,10 +13,7 @@ public class AudioEncoder {
         byte[] audioBytes;
         String audioBase64 = "";
         try {
-
             File audioFile = new File(path);
-            long fileSize = audioFile.length();
-
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             FileInputStream fis = new FileInputStream(audioFile);
             byte[] buf = new byte[1024];
