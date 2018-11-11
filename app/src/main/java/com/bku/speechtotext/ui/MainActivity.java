@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         checkAndRequestPermission();
 
-        initRecorder();
         btnRecord.setRecordListener(new OnRecordListener() {
             @Override
             public void onRecord() {
@@ -81,10 +80,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startRecord() {
-        audioPath = Environment.getExternalStorageDirectory().getPath() + "/" + FILE_NAME;
-
-        mRecorder.setOutputFile(audioPath);
         try {
+            initRecorder();
             mRecorder.prepare();
             mRecorder.start();
         } catch (Exception e) {
@@ -96,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             mRecorder.stop();
             mRecorder.release();
+            mRecorder = null;
             voiceRecognize();
         } catch (Exception e) {
             Log.w(TAG, e);
@@ -146,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        audioPath = Environment.getExternalStorageDirectory().getPath() + "/" + FILE_NAME;
+
+        mRecorder.setOutputFile(audioPath);
     }
 
     @Override
