@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String CLOUD_API_KEY = "ABCDEF1234567890";
+    private final String CLOUD_API_KEY = "AIzaSyCKYZN8rkHDb3FfcZFeCAqbyoGgFhcnv3w";
 
     private static String url = "https://speech.googleapis.com/";
 
