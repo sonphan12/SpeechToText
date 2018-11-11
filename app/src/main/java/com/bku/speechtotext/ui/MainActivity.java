@@ -1,12 +1,15 @@
 package com.bku.speechtotext.ui;
 
+import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.bku.speechtotext.R;
+import com.bku.speechtotext.utils.PermissionUtil;
 import com.emrekose.recordbutton.OnRecordListener;
 import com.emrekose.recordbutton.RecordButton;
 
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        checkAndRequestPermission();
 
         initRecorder();
         btnRecord.setRecordListener(new OnRecordListener() {
@@ -51,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void checkAndRequestPermission() {
+        if (!PermissionUtil.checkSelfPermission(this)) {
+            PermissionUtil.requestPermission(this);
+        }
+    }
+
     private void startRecord() {
         audioPath = Environment.getExternalStorageDirectory().getPath() + "/" + FILE_NAME;
 
@@ -77,6 +89,19 @@ public class MainActivity extends AppCompatActivity {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode != PermissionUtil.ALL_PERMISSION_CODE) {
+            return;
+        }
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                finish();
+            }
+        }
     }
 }
 
