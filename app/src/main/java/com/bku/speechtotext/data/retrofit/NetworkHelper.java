@@ -14,9 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkHelper {
 
-    private final String CLOUD_API_KEY = "AIzaSyCKYZN8rkHDb3FfcZFeCAqbyoGgFhcnv3w";
+    public static final String CLOUD_API_KEY = "AIzaSyCKYZN8rkHDb3FfcZFeCAqbyoGgFhcnv3w";
 
-    private static String URL = "https://speech.googleapis.com/";
+    private static final String URL = "https://speech.googleapis.com/";
 
     private static retrofit2.Retrofit _INSTANCE = null;
 

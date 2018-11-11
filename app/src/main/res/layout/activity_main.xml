@@ -9,6 +9,7 @@
     tools:context="com.bku.speechtotext.ui.MainActivity">
 
     <TextView
+        android:id="@+id/txtResult"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
     <com.emrekose.recordbutton.RecordButton

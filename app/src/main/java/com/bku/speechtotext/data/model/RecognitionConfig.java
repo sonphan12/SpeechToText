@@ -28,7 +28,7 @@ public class RecognitionConfig {
         return new Builder();
     }
 
-    static class Builder {
+    public static class Builder {
         private boolean enableAutomaticPunctuation;
         private String encoding;
         private String language;
