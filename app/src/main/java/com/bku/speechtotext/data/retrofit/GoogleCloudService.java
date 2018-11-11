@@ -7,8 +7,9 @@ import com.bku.speechtotext.data.model.SpeechRecognitionResult;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface GoogleCloudService {
     @POST("/v1p1beta1/speech:recognize")
-    Observable<SpeechRecognitionResult> recognize(@Body RecognitionBody recognitionBody);
+    Observable<SpeechRecognitionResult> recognize(@Query("key") String key, @Body RecognitionBody recognitionBody);
 }
