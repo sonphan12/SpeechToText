@@ -1,7 +1,10 @@
 package com.bku.speechtotext.ui;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -10,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bku.speechtotext.R;
 import com.bku.speechtotext.data.model.RecognitionAudio;
@@ -119,7 +123,18 @@ public class MainActivity extends AppCompatActivity {
                     hideResult();
                 })
                 .doOnTerminate(this::hideLoading)
-                .subscribe(this::showResult, e -> Log.w(TAG, e));
+                .subscribe(this::showResult, e -> {
+                    Log.w(TAG, e);
+                    ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                    if (cm == null) {
+                        Toast.makeText(getApplicationContext(), "Need internet connection!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+                    if (netInfo == null || !netInfo.isConnected()) {
+                        Toast.makeText(getApplicationContext(), "Need internet connection!", Toast.LENGTH_LONG).show();
+                    }
+                });
         mSubscription.add(d);
     }
 
