@@ -15,12 +15,15 @@ import com.bku.speechtotext.data.model.RecognitionBody;
 import com.bku.speechtotext.data.model.RecognitionConfig;
 import com.bku.speechtotext.data.model.SpeechRecognitionAlternative;
 import com.bku.speechtotext.data.model.SpeechRecognitionResult;
+import com.bku.speechtotext.data.model.SpeechRecognitionResultList;
 import com.bku.speechtotext.data.retrofit.GoogleCloudService;
 import com.bku.speechtotext.data.retrofit.NetworkHelper;
 import com.bku.speechtotext.utils.AudioEncoder;
 import com.bku.speechtotext.utils.PermissionUtil;
 import com.emrekose.recordbutton.OnRecordListener;
 import com.emrekose.recordbutton.RecordButton;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,12 +135,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showResult(SpeechRecognitionResult recognitionResult) {
-        SpeechRecognitionAlternative[] alternatives = recognitionResult.getAlternatives();
-        if (alternatives.length <= 0) {
+    private void showResult(SpeechRecognitionResultList recognitionResults) {
+        List<SpeechRecognitionResult> listResults = recognitionResults.getResult();
+        if (listResults == null || listResults.size() <= 0) {
             return;
         }
-        txtResult.setText(alternatives[0].getTranscript());
+        List<SpeechRecognitionAlternative> alternatives = listResults.get(0).getAlternatives();
+        if (alternatives == null || alternatives.size() <= 0) {
+            return;
+        }
+        txtResult.setText(alternatives.get(0).getTranscript());
     }
 
     private void initRecorder() {

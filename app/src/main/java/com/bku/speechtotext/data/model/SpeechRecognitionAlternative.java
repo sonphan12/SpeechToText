@@ -3,26 +3,28 @@ package com.bku.speechtotext.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class SpeechRecognitionAlternative {
     @SerializedName("transcript")
     @Expose
     String transcript;
     @SerializedName("confidence")
     @Expose
-    int confidence;
+    double confidence;
     @SerializedName("words")
     @Expose
-    WordInfo[] words;
+    List<WordInfo> words;
 
     public String getTranscript() {
         return transcript;
     }
 
-    public int getConfidence() {
+    public double getConfidence() {
         return confidence;
     }
 
-    public WordInfo[] getWords() {
+    public List<WordInfo> getWords() {
         return words;
     }
 }
