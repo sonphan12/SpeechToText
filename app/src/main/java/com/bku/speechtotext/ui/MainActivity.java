@@ -7,6 +7,8 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bku.speechtotext.R;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     RecordButton btnRecord;
     @BindView(R.id.txtResult)
     TextView txtResult;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private MediaRecorder mRecorder;
     private String audioPath;
@@ -107,9 +111,14 @@ public class MainActivity extends AppCompatActivity {
         Disposable d = buildRecognitionBody()
                 .flatMap(recognitionBody ->
                         NetworkHelper.getRetrofit().create(GoogleCloudService.class)
-                        .recognize(NetworkHelper.CLOUD_API_KEY, recognitionBody))
+                                .recognize(NetworkHelper.CLOUD_API_KEY, recognitionBody))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(__ -> {
+                    showLoading();
+                    hideResult();
+                })
+                .doOnTerminate(this::hideLoading)
                 .subscribe(this::showResult, e -> Log.w(TAG, e));
         mSubscription.add(d);
     }
@@ -144,7 +153,12 @@ public class MainActivity extends AppCompatActivity {
         if (alternatives == null || alternatives.size() <= 0) {
             return;
         }
+        txtResult.setVisibility(View.VISIBLE);
         txtResult.setText(alternatives.get(0).getTranscript());
+    }
+
+    private void hideResult() {
+        txtResult.setVisibility(View.GONE);
     }
 
     private void initRecorder() {
@@ -168,6 +182,14 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    void hideLoading() {
+        progressBar.setVisibility(View.GONE);
     }
 }
 
