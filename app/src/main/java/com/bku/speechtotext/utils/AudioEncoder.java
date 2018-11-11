@@ -1,4 +1,4 @@
-package com.bku.speechtotext;
+package com.bku.speechtotext.utils;
 
 import android.util.Base64;
 import android.util.Log;
