@@ -118,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
 
             RecognitionConfig recognitionConfig = RecognitionConfig.newBuilder()
                     .setEnableAutomaticPunctuation(true)
-                    .setEncoding("LINEAR16")
+                    .setEncoding("AMR")
                     .setLanguage("vi-VN")
                     .setModel("default")
-                    .setSampleRateHertz(16000)
+                    .setSampleRateHertz(8000)
                     .build();
 
             RecognitionBody recognitionBody = new RecognitionBody();
